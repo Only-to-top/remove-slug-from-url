@@ -7,7 +7,7 @@
  * Удалить slug из опубликованных постов постоянных ссылок. Только влияет на наш CPT
  */
 function sh_remove_cpt_slug( $post_link, $post, $leavename ) {
-  if ( in_array( $post->post_type, array( 'honey-staff' ) ) || 'publish' == $post->post_status )
+  if ( in_array( $post->post_type, array( 'post_type_name' ) ) || 'publish' == $post->post_status )
     $post_link = str_replace( '/' . $post->post_type . '/', '/', $post_link ); 
   return $post_link;
 }
@@ -19,7 +19,7 @@ function sh_parse_request_tricksy( $query ) {
   // Только зациклите наше очень специфическое соответствие правила перезаписи
   if ( 2 != count( $query->query ) || ! isset( $query->query['page'] ) ) return;
   // 'name' will be set if post permalinks are just post_name, otherwise the page rule will match
-  if ( ! empty( $query->query['name'] ) ) { $query->set( 'post_type', array( 'honey-staff' ) ); }
+  if ( ! empty( $query->query['name'] ) ) { $query->set( 'post_type', array( 'post_type_name' ) ); }
 }
 add_action( 'pre_get_posts', 'sh_parse_request_tricksy' );
 ```
